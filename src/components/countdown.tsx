@@ -9,11 +9,11 @@ type TimeLeft = {
   seconds: number;
 };
 
-const UNITS: { key: keyof TimeLeft; label: string }[] = [
-  { key: "days", label: "Días" },
-  { key: "hours", label: "Horas" },
-  { key: "minutes", label: "Min" },
-  { key: "seconds", label: "Seg" },
+const UNITS: { key: keyof TimeLeft; label: string; pad: boolean }[] = [
+  { key: "days", label: "Days", pad: false },
+  { key: "hours", label: "Hours", pad: true },
+  { key: "minutes", label: "Minutes", pad: true },
+  { key: "seconds", label: "Seconds", pad: true },
 ];
 
 function diff(target: number): TimeLeft {
@@ -27,38 +27,43 @@ function diff(target: number): TimeLeft {
   };
 }
 
-const pad = (n: number) => n.toString().padStart(2, "0");
+const fmt = (n: number, pad: boolean) =>
+  pad ? n.toString().padStart(2, "0") : n.toString();
 
 export function Countdown({ target }: { target: string }) {
   const targetMs = new Date(target).getTime();
-  const [time, setTime] = useState<TimeLeft | null>(null);
+  // Lazy init renders live values on the client's first paint; the server
+  // renders placeholders, so the number spans suppress hydration warnings.
+  const [time, setTime] = useState<TimeLeft | null>(() =>
+    typeof window === "undefined" ? null : diff(targetMs),
+  );
 
   useEffect(() => {
-    setTime(diff(targetMs));
     const id = setInterval(() => setTime(diff(targetMs)), 1000);
     return () => clearInterval(id);
   }, [targetMs]);
 
   return (
     <div
-      className="flex items-start justify-center gap-4 sm:gap-8"
+      className="flex items-start justify-center gap-3 sm:gap-5"
       role="timer"
-      aria-label="Cuenta regresiva para el lanzamiento"
+      aria-label="Countdown to launch"
     >
-      {UNITS.map(({ key, label }, i) => (
-        <div key={key} className="flex items-start gap-4 sm:gap-8">
-          <div className="flex flex-col items-center">
-            <span className="font-mono text-4xl tabular-nums tracking-tight text-bone sm:text-6xl md:text-7xl">
-              {time ? pad(time[key]) : "--"}
+      {UNITS.map(({ key, label, pad }, i) => (
+        <div key={key} className="flex items-start gap-3 sm:gap-5">
+          <div className="flex flex-col">
+            <span
+              suppressHydrationWarning
+              className="text-4xl font-medium leading-none tracking-tight text-ink tabular-nums sm:text-5xl md:text-6xl"
+            >
+              {time ? fmt(time[key], pad) : "--"}
             </span>
-            <span className="mt-2 text-[0.65rem] uppercase tracking-[0.28em] text-muted sm:text-xs">
-              {label}
-            </span>
+            <span className="mt-2 text-sm text-label sm:text-base">{label}</span>
           </div>
           {i < UNITS.length - 1 && (
             <span
               aria-hidden
-              className="font-mono text-4xl leading-none text-muted/40 sm:text-6xl md:text-7xl"
+              className="mt-1 text-3xl font-light leading-none text-ink sm:text-4xl md:text-5xl"
             >
               :
             </span>

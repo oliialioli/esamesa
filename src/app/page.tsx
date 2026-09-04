@@ -1,111 +1,127 @@
+import Link from "next/link";
 import { Countdown } from "@/components/countdown";
-import { NotifyForm } from "@/components/notify-form";
+import { Gallery } from "@/components/gallery";
 
 const LAUNCH_DATE =
-  process.env.NEXT_PUBLIC_LAUNCH_DATE ?? "2027-01-15T09:00:00-06:00";
+  process.env.NEXT_PUBLIC_LAUNCH_DATE ?? "2027-01-05T00:00:00-06:00";
 
 const SOCIALS = [
-  { label: "Instagram", href: "https://instagram.com/esamesa" },
-  { label: "Behance", href: "https://behance.net/esamesa" },
-  { label: "LinkedIn", href: "https://linkedin.com/company/esamesa" },
+  { label: "Instagram", href: "https://instagram.com/esamesa", icon: InstagramIcon },
+  { label: "Twitter", href: "https://twitter.com/esamesa", icon: TwitterIcon },
+  { label: "Facebook", href: "https://facebook.com/esamesa", icon: FacebookIcon },
 ];
 
-const EMAIL = "hola@esamesa.studio";
+const EMAIL = "HELLO@ESAMESA.COM";
 const PHONE = "+52 55 1234 5678";
-const YEAR = new Date().getFullYear();
 
 export default function Page() {
   return (
-    <div className="grain relative flex min-h-dvh flex-col overflow-hidden">
-      {/* Ambient background */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-10%,#16151a_0%,#0a0a0c_55%,#050506_100%)]" />
-        <div className="glow absolute left-1/2 top-1/2 h-[70vw] w-[70vw] max-h-[820px] max-w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(217,116,74,0.20)_0%,rgba(217,116,74,0)_65%)] blur-2xl" />
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
-      </div>
+    <div className="relative min-h-dvh overflow-hidden bg-paper">
+      {/* Big translucent wordmark, sits behind the artwork */}
+      <h2
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[47%] z-10 w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[19vw] font-bold leading-none tracking-tight text-ink/10 sm:top-[57%] lg:text-[9vw]"
+      >
+        COMING SOON
+      </h2>
+
+      {/* Scattered gallery */}
+      <Gallery />
 
       {/* Header */}
-      <header className="reveal flex items-center justify-between px-6 py-7 sm:px-10 sm:py-9">
-        <a
-          href="/"
-          className="text-lg font-medium lowercase tracking-[0.02em] text-bone"
-        >
-          esa<span className="text-accent">mesa</span>
-        </a>
-        <nav className="flex items-center gap-5 sm:gap-7">
-          {SOCIALS.map((s) => (
+      <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
+        <Link href="/" className="flex items-center gap-2 text-ink" aria-label="esamesa home">
+          <LeafMark />
+          <span className="font-script text-2xl leading-none sm:text-[1.7rem]">
+            esamesa
+          </span>
+        </Link>
+        <nav className="flex items-center gap-5 sm:gap-8">
+          {SOCIALS.map(({ label, href, icon: Icon }) => (
             <a
-              key={s.label}
-              href={s.href}
+              key={label}
+              href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[0.7rem] uppercase tracking-[0.22em] text-muted transition-colors hover:text-bone sm:text-xs"
+              aria-label={label}
+              className="text-ink transition-opacity hover:opacity-60"
             >
-              {s.label}
+              <Icon className="h-5 w-5 sm:hidden" />
+              <span className="hidden text-xs font-medium uppercase tracking-[0.12em] sm:inline">
+                {label}
+              </span>
             </a>
           ))}
         </nav>
       </header>
 
-      {/* Hero */}
-      <main className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-        <p
-          className="reveal text-[0.7rem] uppercase tracking-[0.4em] text-muted"
-          style={{ animationDelay: "0.05s" }}
-        >
-          Estudio de diseño · Ciudad de México
-        </p>
-
-        <div className="reveal mt-10 sm:mt-12" style={{ animationDelay: "0.15s" }}>
-          <Countdown target={LAUNCH_DATE} />
-        </div>
-
-        <h1
-          className="reveal mt-10 font-display text-[19vw] leading-[0.86] tracking-[-0.02em] text-bone sm:mt-12 sm:text-[13vw] lg:text-[11rem]"
-          style={{ animationDelay: "0.25s" }}
-        >
-          Muy <span className="italic text-accent">pronto</span>
-        </h1>
-
-        <p
-          className="reveal mt-8 max-w-xl text-balance text-sm leading-relaxed text-muted sm:text-base"
-          style={{ animationDelay: "0.35s" }}
-        >
-          Estamos afinando cada detalle antes de abrir. esamesa es el lugar donde
-          las ideas se sientan a trabajar. Déjanos tu correo y te avisamos el día
-          del lanzamiento.
-        </p>
-
-        <div
-          className="reveal mt-9 flex w-full flex-col items-center"
-          style={{ animationDelay: "0.45s" }}
-        >
-          <NotifyForm />
-        </div>
-      </main>
+      {/* Countdown */}
+      <div className="absolute left-1/2 top-[34%] z-30 -translate-x-1/2 -translate-y-1/2 px-4">
+        <Countdown target={LAUNCH_DATE} />
+      </div>
 
       {/* Footer */}
-      <footer className="reveal px-6 py-7 sm:px-10 sm:py-9" style={{ animationDelay: "0.55s" }}>
-        <div className="flex flex-col items-center gap-4 border-t border-line pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-[0.7rem] uppercase tracking-[0.2em] text-muted">
-            © {YEAR} esamesa · Todos los derechos reservados
+      <footer className="absolute inset-x-0 bottom-0 z-40 px-6 py-6 sm:px-10 sm:py-8">
+        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <p className="order-2 text-[0.7rem] uppercase tracking-[0.1em] text-ink/60 sm:order-1">
+            © 2026 ESAMESA. ALL RIGHTS RESERVED.
           </p>
-          <div className="flex items-center gap-5 text-[0.7rem] uppercase tracking-[0.2em]">
-            <a
-              href={`tel:${PHONE.replace(/\s/g, "")}`}
-              className="text-muted transition-colors hover:text-bone"
-            >
+          <p className="order-1 flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.1em] text-ink/80 sm:order-2">
+            <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="transition-opacity hover:opacity-60">
               {PHONE}
             </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="text-bone transition-colors hover:text-accent"
-            >
+            <span className="text-ink/30">/</span>
+            <a href={`mailto:${EMAIL.toLowerCase()}`} className="transition-opacity hover:opacity-60">
               {EMAIL}
             </a>
-          </div>
+          </p>
         </div>
       </footer>
     </div>
+  );
+}
+
+function LeafMark() {
+  return (
+    <svg
+      viewBox="0 0 15.005 15.333"
+      className="h-5 w-5"
+      aria-hidden
+      overflow="visible"
+    >
+      <path
+        d="M 6.123 1.58 C -3.249 9.01 0.927 13.86 0.927 13.86 L 14 15 L 3.566 8.126 L 15 15.333 C 15 15.333 15.496 -5.85 6.123 1.58 Z"
+        fill="currentColor"
+        stroke="currentColor"
+      />
+    </svg>
+  );
+}
+
+type IconProps = { className?: string };
+
+function InstagramIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function TwitterIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.7a4.1 4.1 0 0 0 1.3 5.5c-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.6 3.3 4a4.1 4.1 0 0 1-1.9.1 4.1 4.1 0 0 0 3.8 2.9A8.3 8.3 0 0 1 2 18.6a11.6 11.6 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.2Z" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z" />
+    </svg>
   );
 }

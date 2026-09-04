@@ -1,18 +1,17 @@
 # esamesa — Coming Soon
 
-Página _coming soon_ ("Muy pronto") para el estudio de diseño **esamesa**,
-inspirada en la plantilla de Framer [Comolio](https://comolio.framer.website/).
-
-Incluye marca, enlaces sociales, cuenta regresiva en vivo hasta el lanzamiento,
-un título editorial grande, captura de correo para avisos y un pie con datos de
-contacto. Diseño oscuro y elegante, totalmente responsive.
+Página _coming soon_ para el estudio **esamesa**, una réplica fiel de la
+plantilla de Framer [Comolio](https://comolio.framer.website/): fondo blanco,
+un collage disperso de obras de arte cálidas, cuenta regresiva en vivo, el gran
+texto translúcido "COMING SOON", logotipo con tipografía script y enlaces
+sociales.
 
 ## Stack
 
 - [Next.js 16](https://nextjs.org/) (App Router) + React 19
 - TypeScript
 - Tailwind CSS v4
-- Tipografías: Instrument Serif (display) + Geist / Geist Mono
+- Tipografías: Inter (texto) + Lily Script One (logotipo)
 
 ## Desarrollo local
 
@@ -25,8 +24,6 @@ npm run dev
 
 Abre [http://localhost:43117](http://localhost:43117).
 
-Otros comandos:
-
 ```bash
 npm run build   # build de producción
 npm run start   # servir el build (puerto 43117)
@@ -37,30 +34,32 @@ npm run lint    # linting
 
 - **Fecha de lanzamiento**: define `NEXT_PUBLIC_LAUNCH_DATE` (ISO 8601) para
   cambiar el objetivo de la cuenta regresiva. Por defecto:
-  `2027-01-15T09:00:00-06:00`.
+  `2027-01-05T00:00:00-06:00`.
 
   ```bash
   NEXT_PUBLIC_LAUNCH_DATE="2027-03-01T00:00:00-06:00" npm run dev
   ```
 
-- **Contenido**: la marca, redes sociales, teléfono y correo se editan en
-  `src/app/page.tsx`.
-
-## Notas
-
-- El formulario de "Avísame" es una maqueta en el cliente (simula el envío y
-  muestra un estado de éxito). Conéctalo a un endpoint real —por ejemplo una
-  Route Handler en `src/app/api/`— cuando exista backend o proveedor de correo.
+- **Marca, redes, teléfono y correo**: se editan en `src/app/page.tsx`.
+- **Galería**: las imágenes están en `public/gallery/` y sus posiciones se
+  definen en `src/components/gallery.tsx`.
 
 ## Estructura
 
 ```
+public/gallery/     # obras del collage (art-1…art-7.jpg)
 src/
   app/
-    layout.tsx      # fuentes, metadata / SEO
-    page.tsx        # composición de la landing
-    globals.css     # tema, grano, animaciones
+    layout.tsx      # fuentes, metadata
+    page.tsx        # composición (logo, redes, galería, COMING SOON, pie)
+    globals.css     # tema y animación flotante
   components/
     countdown.tsx   # cuenta regresiva en vivo
-    notify-form.tsx # captura de correo (maqueta)
+    gallery.tsx     # collage disperso (desktop + móvil)
 ```
+
+## Créditos
+
+Diseño y disposición inspirados en la plantilla Comolio de Framer. Las imágenes
+provienen de la misma plantilla de referencia; sustitúyelas por obra propia de
+esamesa cuando esté disponible.

@@ -2,24 +2,21 @@
 
 @theme inline {
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-  --font-display: var(--font-display);
+  --font-script: var(--font-script);
 
-  --color-ink: #0a0a0c;
-  --color-bone: #f4f0e8;
-  --color-muted: #8f8a80;
-  --color-line: rgba(244, 240, 232, 0.12);
-  --color-accent: #d9744a;
+  --color-ink: #0a0a0a;
+  --color-paper: #ffffff;
+  --color-label: #999999;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
 body {
-  background-color: var(--color-ink);
-  color: var(--color-bone);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -28,57 +25,25 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection {
-  background: var(--color-accent);
-  color: var(--color-ink);
-}
-
-/* Fine grain / noise overlay */
-.grain::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-@keyframes drift {
+@keyframes floaty {
   0% {
-    transform: translate3d(-4%, -2%, 0) scale(1.05);
+    transform: translateY(0) rotate(var(--rot, 0deg));
   }
   50% {
-    transform: translate3d(4%, 3%, 0) scale(1.15);
+    transform: translateY(-14px) rotate(var(--rot, 0deg));
   }
   100% {
-    transform: translate3d(-4%, -2%, 0) scale(1.05);
+    transform: translateY(0) rotate(var(--rot, 0deg));
   }
 }
 
-.glow {
-  animation: drift 24s ease-in-out infinite;
+.floaty {
+  animation: floaty var(--dur, 9s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glow {
+  .floaty {
     animation: none;
   }
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal {
-  opacity: 0;
-  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
