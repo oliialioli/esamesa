@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Countdown } from "@/components/countdown";
 import { Marquee } from "@/components/marquee";
@@ -32,11 +33,15 @@ export default function Page() {
 
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
-        <Link href="/" className="flex items-center gap-2 text-ink" aria-label="esamesa home">
-          <LeafMark />
-          <span className="font-script text-2xl leading-none sm:text-[1.7rem]">
-            esamesa
-          </span>
+        <Link href="/" className="flex items-center" aria-label="esamesa home">
+          <Image
+            src="/logo-esamesa.png"
+            alt="esamesa"
+            width={125}
+            height={19}
+            priority
+            className="h-6 w-auto sm:h-7"
+          />
         </Link>
         <nav className="flex items-center gap-5 sm:gap-8">
           {SOCIALS.map(({ label, href, icon: Icon }) => (
@@ -94,23 +99,6 @@ export default function Page() {
         </div>
       </footer>
     </div>
-  );
-}
-
-function LeafMark() {
-  return (
-    <svg
-      viewBox="0 0 15.005 15.333"
-      className="h-5 w-5"
-      aria-hidden
-      overflow="visible"
-    >
-      <path
-        d="M 6.123 1.58 C -3.249 9.01 0.927 13.86 0.927 13.86 L 14 15 L 3.566 8.126 L 15 15.333 C 15 15.333 15.496 -5.85 6.123 1.58 Z"
-        fill="currentColor"
-        stroke="currentColor"
-      />
-    </svg>
   );
 }
 
