@@ -20,11 +20,12 @@ export default function Page() {
       {/* Scrolling gallery of artworks */}
       <Marquee />
 
-      {/* Large wordmark that reveals on load; sits BEHIND the artwork, which
-          scrolls over it (matching the reference layering). */}
+      {/* Large wordmark that reveals on load. White + mix-blend-difference so it
+          sits OVER the artwork and inverts against it (black on the white paper,
+          cyan over the red pieces, etc.) — the reference blend effect. */}
       <h2
         aria-hidden
-        className="title-in pointer-events-none absolute left-1/2 top-[50%] z-[1] w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[17vw] font-bold leading-none tracking-tight text-ink sm:top-[52%] lg:text-[9vw]"
+        className="title-in pointer-events-none absolute left-1/2 top-[50%] z-20 w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[17vw] font-bold leading-none tracking-tight text-white mix-blend-difference sm:top-[52%] lg:text-[9vw]"
       >
         COMING SOON
       </h2>
