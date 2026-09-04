@@ -8,6 +8,10 @@ type Card = {
   dur: number;
   delay: number;
   z: number;
+  // For transparent illustrations: frame them on a solid background and fit the
+  // whole image (contain) instead of cropping (cover).
+  bg?: string;
+  contain?: boolean;
 };
 
 const LG = "clamp(140px,13vw,190px)";
@@ -27,12 +31,23 @@ const CARDS: Card[] = [
   { src: "/gallery/art-5.jpg", width: LG, ty: 86, dur: 24, delay: -14.4, z: 7 },
   { src: "/gallery/art-6.jpg", width: MD, ty: 14, dur: 34, delay: -25.2, z: 3 },
   { src: "/gallery/art-7.jpg", width: LG, ty: -78, dur: 27, delay: -23.8, z: 5 },
+  {
+    src: "/gallery/art-8.png",
+    width: MD,
+    ty: 60,
+    dur: 30,
+    delay: -12,
+    z: 4,
+    bg: "#ffffff",
+    contain: true,
+  },
 ];
 
 function Frame({ card }: { card: Card }) {
   const style: CSSProperties = {
     width: card.width,
     zIndex: card.z,
+    ...(card.bg ? { backgroundColor: card.bg } : {}),
     ["--ty" as string]: `${card.ty}px`,
     ["--dur" as string]: `${card.dur}s`,
     ["--delay" as string]: `${card.delay}s`,
@@ -46,7 +61,7 @@ function Frame({ card }: { card: Card }) {
       <img
         src={asset(card.src)}
         alt=""
-        className="h-full w-full object-cover"
+        className={`h-full w-full ${card.contain ? "object-contain p-4" : "object-cover"}`}
         loading="eager"
         draggable={false}
       />
