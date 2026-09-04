@@ -61,6 +61,20 @@ export default function Page() {
         <Countdown target={LAUNCH_DATE} />
       </div>
 
+      {/* Subtle intro copy + invite, just below the wordmark */}
+      <p className="absolute left-1/2 top-[64%] z-30 w-full max-w-[34rem] -translate-x-1/2 -translate-y-1/2 px-6 text-center text-[0.8rem] leading-relaxed text-ink/60 sm:text-sm">
+        Estamos afinando cada detalle antes de lanzar nuestro pequeño espacio.{" "}
+        <span className="font-script text-[1.05em] text-ink/80">esamesa</span> es
+        el lugar donde las ideas se sientan a trabajar.{" "}
+        <a
+          href={`mailto:${EMAIL.toLowerCase()}`}
+          className="whitespace-nowrap text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:decoration-ink"
+        >
+          Déjanos tu correo y te escribimos
+        </a>
+        .
+      </p>
+
       {/* Footer */}
       <footer className="absolute inset-x-0 bottom-0 z-40 px-6 py-6 sm:px-10 sm:py-8">
         <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
