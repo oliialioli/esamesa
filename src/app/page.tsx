@@ -68,7 +68,7 @@ export default function Page() {
       </div>
 
       {/* Subtle intro copy + invite, just below the wordmark */}
-      <p className="absolute left-1/2 top-[64%] z-30 w-full max-w-[34rem] -translate-x-1/2 -translate-y-1/2 px-6 text-center text-[0.8rem] leading-relaxed text-ink/60 sm:text-sm">
+      <p className="absolute left-1/2 top-[74%] z-30 w-full max-w-[34rem] -translate-x-1/2 -translate-y-1/2 px-6 text-center text-[0.8rem] leading-relaxed text-ink/60 sm:text-sm">
         Estamos afinando cada detalle antes de lanzar nuestro pequeño espacio.{" "}
         <span className="font-script text-[1.05em] text-ink/80">esamesa</span> es
         el lugar donde las ideas se sientan a trabajar.{" "}
