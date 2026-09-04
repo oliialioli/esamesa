@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { asset } from "@/lib/base-path";
 
 type Card = {
   src: string;
@@ -43,7 +44,7 @@ function Frame({ card }: { card: Card }) {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={card.src}
+        src={asset(card.src)}
         alt=""
         className="h-full w-full object-cover"
         loading="eager"
