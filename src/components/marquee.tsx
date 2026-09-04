@@ -6,16 +6,16 @@ type Card = {
   ty: number;
 };
 
-// Upright framed artworks with individual vertical offsets, forming a wave
-// as they scroll. Order matches the reference collage.
+// Upright framed artworks with pronounced, varied vertical offsets and sizes,
+// matching the scattered spread of the reference collage as they scroll.
 const CARDS: Card[] = [
-  { src: "/gallery/art-1.jpg", width: "clamp(120px,12vw,168px)", ty: -36 },
-  { src: "/gallery/art-2.jpg", width: "clamp(150px,15vw,220px)", ty: 44 },
-  { src: "/gallery/art-3.jpg", width: "clamp(140px,14vw,196px)", ty: -64 },
-  { src: "/gallery/art-7.jpg", width: "clamp(110px,11vw,150px)", ty: 56 },
-  { src: "/gallery/art-4.jpg", width: "clamp(120px,12vw,160px)", ty: 28 },
-  { src: "/gallery/art-5.jpg", width: "clamp(150px,15vw,216px)", ty: 24 },
-  { src: "/gallery/art-6.jpg", width: "clamp(120px,12vw,160px)", ty: -48 },
+  { src: "/gallery/art-2.jpg", width: "clamp(120px,11vw,164px)", ty: 20 },
+  { src: "/gallery/art-1.jpg", width: "clamp(120px,11vw,164px)", ty: -70 },
+  { src: "/gallery/art-3.jpg", width: "clamp(140px,13vw,190px)", ty: -34 },
+  { src: "/gallery/art-5.jpg", width: "clamp(140px,13vw,190px)", ty: 86 },
+  { src: "/gallery/art-7.jpg", width: "clamp(140px,13vw,190px)", ty: -78 },
+  { src: "/gallery/art-4.jpg", width: "clamp(96px,9vw,130px)", ty: 52 },
+  { src: "/gallery/art-6.jpg", width: "clamp(120px,11vw,164px)", ty: 14 },
 ];
 
 function Frame({ card }: { card: Card }) {
@@ -48,7 +48,7 @@ export function Marquee() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-[55%] z-10 flex h-[460px] -translate-y-1/2 items-center overflow-hidden"
+      className="pointer-events-none absolute inset-x-0 top-[55%] z-10 flex h-[560px] -translate-y-1/2 items-center overflow-hidden"
     >
       <div className="marquee-track flex h-full w-max items-center">
         {loop.map((card, i) => (
