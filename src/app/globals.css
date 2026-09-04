@@ -25,19 +25,31 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Infinite horizontal marquee: the track holds two identical copies of the
-   card set, so translating by -50% loops seamlessly. */
-@keyframes marquee {
+/* Parallax field: each card crosses the viewport independently at its own
+   speed (--dur), teleporting back while fully off-screen so the loop is
+   invisible. --ty holds the fixed vertical offset; -50% centers the card. */
+@keyframes cross {
   from {
-    transform: translateX(0);
+    transform: translateX(100vw) translateY(calc(var(--ty, 0px) - 50%));
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-32vw) translateY(calc(var(--ty, 0px) - 50%));
   }
 }
 
-.marquee-track {
-  animation: marquee var(--marquee-dur, 34s) linear infinite;
+.pcard {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  animation: cross var(--dur, 30s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcard {
+    animation-play-state: paused;
+  }
 }
 
 /* Wordmark reveal: expands from a small, faint mark to a large, bold one.

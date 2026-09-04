@@ -4,31 +4,37 @@ type Card = {
   src: string;
   width: string;
   ty: number;
+  dur: number;
+  delay: number;
 };
 
-// Upright framed artworks with pronounced, varied vertical offsets and sizes,
-// matching the scattered spread of the reference collage as they scroll.
+const LG = "clamp(140px,13vw,190px)";
+const MD = "clamp(120px,11vw,164px)";
+const SM = "clamp(96px,9vw,130px)";
+
+// Each card crosses the screen at its own speed (larger art moves faster,
+// smaller art slower), like the reference parallax. `delay` (negative) sets
+// the starting phase so the cards are spread across the viewport at load.
 const CARDS: Card[] = [
-  { src: "/gallery/art-2.jpg", width: "clamp(120px,11vw,164px)", ty: 20 },
-  { src: "/gallery/art-1.jpg", width: "clamp(120px,11vw,164px)", ty: -70 },
-  { src: "/gallery/art-3.jpg", width: "clamp(140px,13vw,190px)", ty: -34 },
-  { src: "/gallery/art-5.jpg", width: "clamp(140px,13vw,190px)", ty: 86 },
-  { src: "/gallery/art-7.jpg", width: "clamp(140px,13vw,190px)", ty: -78 },
-  { src: "/gallery/art-4.jpg", width: "clamp(96px,9vw,130px)", ty: 52 },
-  { src: "/gallery/art-6.jpg", width: "clamp(120px,11vw,164px)", ty: 14 },
+  { src: "/gallery/art-1.jpg", width: MD, ty: -70, dur: 34, delay: -3.4 },
+  { src: "/gallery/art-2.jpg", width: MD, ty: 20, dur: 32, delay: -7.7 },
+  { src: "/gallery/art-3.jpg", width: LG, ty: -34, dur: 26, delay: -9.9 },
+  { src: "/gallery/art-4.jpg", width: SM, ty: 52, dur: 40, delay: -20 },
+  { src: "/gallery/art-5.jpg", width: LG, ty: 86, dur: 24, delay: -14.4 },
+  { src: "/gallery/art-6.jpg", width: MD, ty: 14, dur: 34, delay: -25.2 },
+  { src: "/gallery/art-7.jpg", width: LG, ty: -78, dur: 27, delay: -23.8 },
 ];
 
 function Frame({ card }: { card: Card }) {
-  // The trailing margin (not a flex `gap`) travels with each card, so two
-  // duplicated copies loop seamlessly at translateX(-50%).
   const style: CSSProperties = {
     width: card.width,
-    transform: `translateY(${card.ty}px)`,
-    marginRight: "clamp(24px,4vw,72px)",
+    ["--ty" as string]: `${card.ty}px`,
+    ["--dur" as string]: `${card.dur}s`,
+    ["--delay" as string]: `${card.delay}s`,
   };
   return (
     <div
-      className="aspect-[3/4] shrink-0 overflow-hidden rounded-2xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.35)] ring-1 ring-black/5"
+      className="pcard aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.35)] ring-1 ring-black/5"
       style={style}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -44,17 +50,14 @@ function Frame({ card }: { card: Card }) {
 }
 
 export function Marquee() {
-  const loop = [...CARDS, ...CARDS];
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-[55%] z-10 flex h-[560px] -translate-y-1/2 items-center overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
     >
-      <div className="marquee-track flex h-full w-max items-center">
-        {loop.map((card, i) => (
-          <Frame key={i} card={card} />
-        ))}
-      </div>
+      {CARDS.map((card) => (
+        <Frame key={card.src} card={card} />
+      ))}
     </div>
   );
 }
