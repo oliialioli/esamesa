@@ -32,14 +32,14 @@ const fmt = (n: number, pad: boolean) =>
 
 export function Countdown({ target }: { target: string }) {
   const targetMs = new Date(target).getTime();
-  // Lazy init renders live values on the client's first paint; the server
-  // renders placeholders, so the number spans suppress hydration warnings.
-  const [time, setTime] = useState<TimeLeft | null>(() =>
-    typeof window === "undefined" ? null : diff(targetMs),
-  );
+  // null on the server and the client's first render (matching HTML, so no
+  // hydration mismatch); the effect fills in live values right after mount.
+  const [time, setTime] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
-    const id = setInterval(() => setTime(diff(targetMs)), 1000);
+    const update = () => setTime(diff(targetMs));
+    update();
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, [targetMs]);
 
