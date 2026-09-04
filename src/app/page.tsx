@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Countdown } from "@/components/countdown";
+import { EsamesaLogo } from "@/components/logo";
 import { Marquee } from "@/components/marquee";
 
 const LAUNCH_DATE =
@@ -33,15 +33,8 @@ export default function Page() {
 
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
-        <Link href="/" className="flex items-center" aria-label="esamesa home">
-          <Image
-            src="/logo-esamesa.png"
-            alt="esamesa"
-            width={125}
-            height={19}
-            priority
-            className="h-6 w-auto sm:h-7"
-          />
+        <Link href="/" className="flex items-center text-ink" aria-label="esamesa home">
+          <EsamesaLogo className="h-4 w-auto sm:h-[18px]" />
         </Link>
         <nav className="flex items-center gap-5 sm:gap-8">
           {SOCIALS.map(({ label, href, icon: Icon }) => (
@@ -68,7 +61,7 @@ export default function Page() {
       </div>
 
       {/* Subtle intro copy + invite, just below the wordmark */}
-      <p className="absolute left-1/2 top-[74%] z-30 w-full max-w-[34rem] -translate-x-1/2 -translate-y-1/2 px-6 text-center text-[0.8rem] leading-relaxed text-ink/60 sm:text-sm">
+      <p className="absolute left-1/2 top-[82%] z-30 w-full max-w-[34rem] -translate-x-1/2 -translate-y-1/2 px-6 text-center text-[0.8rem] leading-relaxed text-ink/60 sm:text-sm">
         Estamos afinando cada detalle antes de lanzar nuestro pequeño espacio.{" "}
         <span className="font-script text-[1.05em] text-ink/80">esamesa</span> es
         el lugar donde las ideas se sientan a trabajar.{" "}
