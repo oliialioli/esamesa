@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Countdown } from "@/components/countdown";
-import { Gallery } from "@/components/gallery";
+import { Marquee } from "@/components/marquee";
 
 const LAUNCH_DATE =
   process.env.NEXT_PUBLIC_LAUNCH_DATE ?? "2027-01-05T00:00:00-06:00";
@@ -17,16 +17,16 @@ const PHONE = "+52 55 1234 5678";
 export default function Page() {
   return (
     <div className="relative min-h-dvh overflow-hidden bg-paper">
-      {/* Big translucent wordmark, sits behind the artwork */}
+      {/* Scrolling gallery of artworks */}
+      <Marquee />
+
+      {/* Large wordmark that reveals on load, in front of the marquee */}
       <h2
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[47%] z-10 w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[19vw] font-bold leading-none tracking-tight text-ink/10 sm:top-[57%] lg:text-[9vw]"
+        className="title-in pointer-events-none absolute left-1/2 top-[50%] z-20 w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[17vw] font-bold leading-none tracking-tight text-ink sm:top-[52%] lg:text-[9vw]"
       >
         COMING SOON
       </h2>
-
-      {/* Scattered gallery */}
-      <Gallery />
 
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
@@ -56,7 +56,7 @@ export default function Page() {
       </header>
 
       {/* Countdown */}
-      <div className="absolute left-1/2 top-[34%] z-30 -translate-x-1/2 -translate-y-1/2 px-4">
+      <div className="absolute left-1/2 top-[36%] z-30 -translate-x-1/2 -translate-y-1/2 px-4">
         <Countdown target={LAUNCH_DATE} />
       </div>
 

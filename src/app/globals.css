@@ -25,25 +25,43 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-@keyframes floaty {
-  0% {
-    transform: translateY(0) rotate(var(--rot, 0deg));
+/* Infinite horizontal marquee: the track holds two identical copies of the
+   card set, so translating by -50% loops seamlessly. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
   }
-  50% {
-    transform: translateY(-14px) rotate(var(--rot, 0deg));
-  }
-  100% {
-    transform: translateY(0) rotate(var(--rot, 0deg));
+  to {
+    transform: translateX(-50%);
   }
 }
 
-.floaty {
-  animation: floaty var(--dur, 9s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
+.marquee-track {
+  animation: marquee var(--marquee-dur, 34s) linear infinite;
+}
+
+/* Wordmark reveal: expands from a small, faint mark to a large, bold one.
+   Opacity on black text reads as light-gray -> black. */
+@keyframes title-in {
+  0% {
+    opacity: 0.12;
+    transform: scale(0.36);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.title-in {
+  animation: title-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .floaty {
+  .marquee-track {
+    animation: none;
+  }
+  .title-in {
     animation: none;
   }
 }
