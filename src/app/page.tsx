@@ -71,7 +71,12 @@ export default function Page() {
             page background, keeps the copy readable when an artwork passes behind. */}
         <p className="-my-2 max-w-[36rem] rounded-3xl bg-paper/80 px-3 py-2 text-center text-[0.8rem] leading-normal text-ink/60 backdrop-blur-[2px] sm:px-4 sm:text-sm sm:leading-relaxed">
           Estamos afinando cada detalle antes de lanzar nuestro pequeño espacio.{" "}
-          <span className="font-script text-[1.05em] text-ink/80">esamesa</span> es
+          <span className="text-ink">
+            <span aria-hidden>
+              <EsamesaLogo className="inline-block h-[0.8em] w-auto align-baseline" />
+            </span>
+            <span className="sr-only">esamesa</span>
+          </span> es
           el lugar donde las ideas se sientan a trabajar. Escríbenos y te avisamos
           cuando abramos.
         </p>

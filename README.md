@@ -13,7 +13,7 @@ Publicada en <https://oliialioli.github.io/esamesa/>.
 - [Next.js 16](https://nextjs.org/) (App Router) + React 19
 - TypeScript
 - Tailwind CSS v4
-- Tipografías: Inter (texto) + Lily Script One (logotipo)
+- Tipografía: Inter. El logotipo es un SVG vectorial (`src/components/logo.tsx`)
 
 ## Desarrollo local
 
