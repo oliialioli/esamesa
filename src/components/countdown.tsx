@@ -10,10 +10,10 @@ type TimeLeft = {
 };
 
 const UNITS: { key: keyof TimeLeft; label: string; pad: boolean }[] = [
-  { key: "days", label: "Days", pad: false },
-  { key: "hours", label: "Hours", pad: true },
-  { key: "minutes", label: "Minutes", pad: true },
-  { key: "seconds", label: "Seconds", pad: true },
+  { key: "days", label: "Días", pad: false },
+  { key: "hours", label: "Horas", pad: true },
+  { key: "minutes", label: "Minutos", pad: true },
+  { key: "seconds", label: "Segundos", pad: true },
 ];
 
 function diff(target: number): TimeLeft {
@@ -45,25 +45,29 @@ export function Countdown({ target }: { target: string }) {
 
   return (
     <div
-      className="flex items-start justify-center gap-3 sm:gap-5"
+      className="flex items-start justify-center gap-3 max-[359px]:gap-2 sm:gap-5"
       role="timer"
-      aria-label="Countdown to launch"
+      aria-label="Cuenta regresiva para el lanzamiento"
     >
       {UNITS.map(({ key, label, pad }, i) => (
-        <div key={key} className="flex items-start gap-3 sm:gap-5">
+        <div key={key} className="flex items-start gap-3 max-[359px]:gap-2 sm:gap-5">
           <div className="flex flex-col">
             <span
               suppressHydrationWarning
-              className="text-4xl font-medium leading-none tracking-tight text-ink tabular-nums sm:text-5xl md:text-6xl"
+              className="text-4xl font-medium leading-none tracking-tight text-ink tabular-nums max-[359px]:text-3xl sm:text-5xl md:text-6xl"
             >
               {time ? fmt(time[key], pad) : "--"}
             </span>
-            <span className="mt-2 text-sm text-label sm:text-base">{label}</span>
+            {/* Translucent paper pill: invisible on the page background, keeps
+                the label readable while an artwork passes behind it. */}
+            <span className="-ml-2 mt-1.5 self-start rounded-full bg-paper/85 px-2 py-0.5 text-sm font-medium text-label backdrop-blur-[2px] max-[359px]:text-xs sm:text-base">
+              {label}
+            </span>
           </div>
           {i < UNITS.length - 1 && (
             <span
               aria-hidden
-              className="mt-1 text-3xl font-light leading-none text-ink sm:text-4xl md:text-5xl"
+              className="mt-1 text-3xl font-light leading-none text-ink max-[359px]:text-2xl sm:text-4xl md:text-5xl"
             >
               :
             </span>

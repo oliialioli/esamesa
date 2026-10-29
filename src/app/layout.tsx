@@ -13,30 +13,43 @@ const lilyScript = Lily_Script_One({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://esamesa.com";
+// Public URL of the deployed site, used for canonical and Open Graph links. The
+// deploy workflow sets it from GitHub Pages, so it follows a custom domain as
+// soon as one is configured in the repo's Pages settings.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://oliialioli.github.io/esamesa";
+
+const title = "esamesa — Muy pronto";
+const description = "esamesa. Algo está en camino. Muy pronto.";
+
+// Share preview (public/og.jpg), resolved against metadataBase.
+const shareImage = { url: "/og.jpg", width: 1200, height: 630, alt: title };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "esamesa — Coming Soon",
-  description: "esamesa. Something is on the way. Coming soon.",
+  title,
+  description,
   openGraph: {
-    title: "esamesa — Coming Soon",
-    description: "esamesa. Something is on the way. Coming soon.",
+    title,
+    description,
     url: siteUrl,
     siteName: "esamesa",
+    locale: "es_MX",
     type: "website",
+    images: [shareImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "esamesa — Coming Soon",
-    description: "esamesa. Something is on the way. Coming soon.",
+    title,
+    description,
+    images: [shareImage.url],
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${inter.variable} ${lilyScript.variable} h-full antialiased`}
     >
       <body className="min-h-full">{children}</body>

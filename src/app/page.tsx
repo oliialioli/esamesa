@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CopyEmail } from "@/components/copy-email";
 import { Countdown } from "@/components/countdown";
 import { EsamesaLogo } from "@/components/logo";
 import { Marquee } from "@/components/marquee";
@@ -12,8 +13,11 @@ const SOCIALS = [
   { label: "Facebook", href: "https://facebook.com/esamesa", icon: FacebookIcon },
 ];
 
-const EMAIL = "HELLO@ESAMESA.COM";
-const PHONE = "+52 55 1234 5678";
+// Correos que se muestran como chips para copiar con un clic.
+const EMAILS = ["olaia@esamesa.com", "adriana@esamesa.com"];
+
+// Teléfono del pie. Vacío = oculto, hasta tener el número real.
+const PHONE: string = "";
 
 export default function Page() {
   return (
@@ -26,14 +30,14 @@ export default function Page() {
           cyan over the red pieces, etc.) — the reference blend effect. */}
       <h2
         aria-hidden
-        className="title-in pointer-events-none absolute left-1/2 top-[50%] z-20 w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[17vw] font-bold leading-none tracking-tight text-white mix-blend-difference sm:top-[52%] lg:text-[9vw]"
+        className="title-in pointer-events-none absolute left-1/2 top-[50%] z-20 w-full -translate-x-1/2 -translate-y-1/2 select-none text-center text-[17vw] font-bold leading-none tracking-tight text-white mix-blend-difference max-sm:short:top-[47%] sm:top-[52%] lg:text-[9vw]"
       >
-        COMING SOON
+        MUY PRONTO
       </h2>
 
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
-        <Link href="/" className="flex items-center text-ink" aria-label="esamesa home">
+        <Link href="/" className="flex items-center text-ink" aria-label="esamesa, inicio">
           <EsamesaLogo className="h-4 w-auto sm:h-[18px]" />
         </Link>
         <nav className="flex items-center gap-5 sm:gap-8">
@@ -56,41 +60,43 @@ export default function Page() {
       </header>
 
       {/* Countdown */}
-      <div className="absolute left-1/2 top-[36%] z-30 -translate-x-1/2 -translate-y-1/2 px-4">
+      <div className="absolute left-1/2 top-[36%] z-30 -translate-x-1/2 -translate-y-1/2 px-4 max-sm:short:top-[33%]">
         <Countdown target={LAUNCH_DATE} />
       </div>
 
-      {/* Subtle intro copy + invite, just below the wordmark */}
-      <p className="absolute left-1/2 top-[82%] z-30 w-full max-w-[34rem] -translate-x-1/2 -translate-y-1/2 px-6 text-center text-[0.8rem] leading-relaxed text-ink/60 sm:text-sm">
-        Estamos afinando cada detalle antes de lanzar nuestro pequeño espacio.{" "}
-        <span className="font-script text-[1.05em] text-ink/80">esamesa</span> es
-        el lugar donde las ideas se sientan a trabajar.{" "}
-        <a
-          href={`mailto:${EMAIL.toLowerCase()}`}
-          className="whitespace-nowrap text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:decoration-ink"
-        >
-          Déjanos tu correo y te escribimos
-        </a>
-        .
-      </p>
+      {/* Intro copy, copyable emails and footer, stacked from the bottom so they
+          can't collide with each other on short screens */}
+      <div className="absolute inset-x-0 bottom-0 z-40 flex flex-col items-center gap-3 px-6 pb-6 sm:gap-5 sm:px-10 sm:pb-8">
+        {/* Same translucent paper plate as the countdown labels: invisible on the
+            page background, keeps the copy readable when an artwork passes behind. */}
+        <p className="-my-2 max-w-[36rem] rounded-3xl bg-paper/80 px-3 py-2 text-center text-[0.8rem] leading-normal text-ink/60 backdrop-blur-[2px] sm:px-4 sm:text-sm sm:leading-relaxed">
+          Estamos afinando cada detalle antes de lanzar nuestro pequeño espacio.{" "}
+          <span className="font-script text-[1.05em] text-ink/80">esamesa</span> es
+          el lugar donde las ideas se sientan a trabajar. Escríbenos y te avisamos
+          cuando abramos.
+        </p>
 
-      {/* Footer */}
-      <footer className="absolute inset-x-0 bottom-0 z-40 px-6 py-6 sm:px-10 sm:py-8">
-        <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <p className="order-2 text-[0.7rem] uppercase tracking-[0.1em] text-ink/60 sm:order-1">
-            © 2026 ESAMESA. ALL RIGHTS RESERVED.
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3">
+          {EMAILS.map((email) => (
+            <CopyEmail key={email} email={email} />
+          ))}
+        </div>
+
+        <footer className="flex w-full flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+          <p className="text-[0.7rem] uppercase tracking-[0.1em] text-ink/60">
+            © 2026 ESAMESA.
+            <span className="max-sm:hidden"> TODOS LOS DERECHOS RESERVADOS.</span>
           </p>
-          <p className="order-1 flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.1em] text-ink/80 sm:order-2">
-            <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="transition-opacity hover:opacity-60">
+          {PHONE && (
+            <a
+              href={`tel:${PHONE.replace(/\s/g, "")}`}
+              className="text-[0.7rem] uppercase tracking-[0.1em] text-ink/80 transition-opacity hover:opacity-60"
+            >
               {PHONE}
             </a>
-            <span className="text-ink/30">/</span>
-            <a href={`mailto:${EMAIL.toLowerCase()}`} className="transition-opacity hover:opacity-60">
-              {EMAIL}
-            </a>
-          </p>
-        </div>
-      </footer>
+          )}
+        </footer>
+      </div>
     </div>
   );
 }

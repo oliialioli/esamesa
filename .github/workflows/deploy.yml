@@ -45,6 +45,9 @@ jobs:
           STATIC_EXPORT: "true"
           # Serve assets from the repo subpath (https://<user>.github.io/<repo>).
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # Public URL for canonical/Open Graph metadata. Follows a custom
+          # domain automatically once one is set in the repo's Pages settings.
+          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
         run: npm run build
 
       - name: Disable Jekyll (serve _next/ folder as-is)
