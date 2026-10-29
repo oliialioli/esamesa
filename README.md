@@ -2,8 +2,8 @@
 
 Página _muy pronto_ (coming soon) para el estudio **esamesa**, inspirada en la
 plantilla de Framer [Comolio](https://comolio.framer.website/): fondo color
-papel, un collage de obras de arte cálidas que cruzan la pantalla, cuenta
-regresiva en vivo, el gran texto "MUY PRONTO" que se invierte sobre las obras,
+papel, un collage de trabajos del estudio que cruzan la pantalla, cuenta
+regresiva en vivo, el gran texto "MUY PRONTO" que se invierte sobre las piezas,
 logotipo con tipografía script, redes y correos que se copian con un clic.
 
 Publicada en <https://oliialioli.github.io/esamesa/>.
@@ -49,8 +49,14 @@ npm run lint    # linting
 - **Textos**: la web está en español. Los textos viven en `src/app/page.tsx`
   y `src/components/countdown.tsx`; el idioma y los metadatos, en
   `src/app/layout.tsx`.
-- **Galería**: las imágenes están en `public/gallery/` y su tamaño, posición y
-  velocidad se definen en `src/components/marquee.tsx` (lista `CARDS`).
+- **Galería**: las imágenes están en `public/gallery/` y cada pieza se define en
+  `src/components/marquee.tsx` (lista `CARDS`): archivo, proporción (`ratio` =
+  ancho / alto de la imagen), tamaño, altura (`ty`), velocidad (`dur`), momento
+  del ciclo al cargar (`phase`) y profundidad (`z`). Cada pieza cruza la
+  pantalla y espera fuera de ella el resto del ciclo, así que solo se ven unas
+  siete a la vez. Para añadir una, copia la imagen a `public/gallery/` (basta un
+  JPEG de 720 px de ancho si es apaisada o de 520 px si es vertical) y añade su
+  línea a `CARDS`.
 - **URL pública y metadatos**: `NEXT_PUBLIC_SITE_URL` fija la URL canónica y la
   de las imágenes para redes sociales. Si no se define, usa la de GitHub Pages.
   La imagen para compartir es `public/og.jpg` (1200×630 px, ligera); si cambias
@@ -68,7 +74,7 @@ _Settings → Pages_ no hace falta tocar el código.
 
 ```
 public/
-  gallery/          # obras del collage (art-1…art-7.jpg, art-8.png)
+  gallery/          # piezas del collage (JPEG, varias por proyecto)
   og.jpg            # imagen para compartir en redes (1200×630)
 src/
   app/
@@ -87,5 +93,4 @@ src/
 ## Créditos
 
 Diseño y disposición inspirados en la plantilla Comolio de Framer. Las imágenes
-provienen de la misma plantilla de referencia; sustitúyelas por obra propia de
-esamesa cuando esté disponible.
+del collage son trabajos propios de esamesa.

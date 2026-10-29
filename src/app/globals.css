@@ -31,14 +31,17 @@ body {
 }
 
 /* Parallax field: each card crosses the viewport independently at its own
-   speed (--dur), teleporting back while fully off-screen so the loop is
-   invisible. --ty holds the fixed vertical offset; -50% centers the card. */
+   speed (--dur), then waits off-screen for the rest of the cycle, so only about
+   half of the cards are visible at once. It teleports back while fully
+   off-screen, so the loop is invisible. --ty holds the fixed vertical offset;
+   -50% centers the card, and -100% X parks it just past the left edge. */
 @keyframes cross {
-  from {
+  0% {
     transform: translateX(100vw) translateY(calc(var(--ty, 0px) - 50%));
   }
-  to {
-    transform: translateX(-32vw) translateY(calc(var(--ty, 0px) - 50%));
+  50%,
+  100% {
+    transform: translateX(-100%) translateY(calc(var(--ty, 0px) - 50%));
   }
 }
 
