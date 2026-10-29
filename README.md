@@ -4,7 +4,7 @@ Página _muy pronto_ (coming soon) para el estudio **esamesa**, inspirada en la
 plantilla de Framer [Comolio](https://comolio.framer.website/): fondo color
 papel, un collage de trabajos del estudio que cruzan la pantalla, cuenta
 regresiva en vivo, el gran texto "MUY PRONTO" que se invierte sobre las piezas,
-logotipo con tipografía script, redes y correos que se copian con un clic.
+logotipo y correos que se copian con un clic.
 
 Publicada en <https://oliialioli.github.io/esamesa/>.
 
@@ -42,8 +42,7 @@ npm run lint    # linting
   NEXT_PUBLIC_LAUNCH_DATE="2027-03-01T00:00:00-06:00" npm run dev
   ```
 
-- **Redes, correos y teléfono**: se editan en `src/app/page.tsx`.
-  - `SOCIALS`: enlaces del encabezado.
+- **Correos y teléfono**: se editan en `src/app/page.tsx`.
   - `EMAILS`: cada dirección se muestra como un chip que la copia al portapapeles.
   - `PHONE`: vacío = oculto. Escribe el número real para mostrarlo en el pie.
 - **Textos**: la web está en español. Los textos viven en `src/app/page.tsx`
@@ -79,7 +78,7 @@ public/
 src/
   app/
     layout.tsx      # fuentes, idioma y metadatos (Open Graph)
-    page.tsx        # composición (logo, redes, cuenta regresiva, MUY PRONTO, correos, pie)
+    page.tsx        # composición (logo, cuenta regresiva, MUY PRONTO, correos, pie)
     globals.css     # tema y animaciones
   components/
     copy-email.tsx  # chip que copia un correo al portapapeles
